@@ -1,0 +1,8 @@
+*
+
+# gitignore
+!.gitignore
+
+# C言語
+!C/
+!C/*
