@@ -3,9 +3,13 @@
 # gitignore
 !.gitignore
 
-# C言語
+# C
 !C/
 !C/*
+
+# ASM
+!ASM
+!ASM/*
 
 # JavaScript
 !JavaScript
