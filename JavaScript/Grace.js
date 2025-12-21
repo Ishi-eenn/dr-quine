@@ -1,7 +1,7 @@
 (function grace() {
   /*
-    まじ天才。私が書いたよーーーーー。
-  */
+   * コメント
+   */
   const fs = require('fs')
   const output = "Grace_kid.js"
   const codeStr = `(${grace.toString()})()
