@@ -13,21 +13,21 @@ CODE_STR db "global main%1$c%1$cextern sprintf%1$cextern fopen%1$cextern fclose%
 ASCII_NL equ 10
 ASCII_QUOTE equ 34
 
-SRC_TEMPLATE     db "Sully_%d.s", 0
-OBJ_TEMPLATE     db "Sully_%d.o", 0
-EXEC_TEMPLATE    db "Sully_%d", 0
-CURRENT_FILE     db __FILE__, 0
-OPEN_PERM        db "w", 0
+SRC_TEMPLATE db "Sully_%d.s", 0
+OBJ_TEMPLATE db "Sully_%d.o", 0
+EXEC_TEMPLATE db "Sully_%d", 0
+CURRENT_FILE db __FILE__, 0
+OPEN_PERM db "w", 0
 COMPILE_TEMPLATE db "nasm -f elf64 %s -o %s && gcc -no-pie -o %s %s && rm %s", 0
-RUN_TEMPLATE     db "./%s", 0
+RUN_TEMPLATE db "./%s", 0
 
 section .data
 X_VALUE dq 5
-RUN_CMD          times 200 db 0
-COMPILE_CMD      times 400 db 0
-OBJ_FILENAME     times 100 db 0
-SRC_FILENAME     times 100 db 0
-EXEC_FILENAME    times 100 db 0
+RUN_CMD times 200 db 0
+COMPILE_CMD times 400 db 0
+OBJ_FILENAME times 100 db 0
+SRC_FILENAME times 100 db 0
+EXEC_FILENAME times 100 db 0
 CURRENT_FILENAME times 100 db 0
 
 section .text
@@ -52,7 +52,6 @@ try_accessing_file:
   lea rdi, [rel CURRENT_FILENAME]
   lea rsi, [rel CURRENT_FILE]
   call strcmp wrt ..plt
-
   test rax, rax
   jnz create_src_name
   dec r12
@@ -101,11 +100,10 @@ create_file:
 create_compile_cmd:
   lea rdi, [rel COMPILE_CMD]
   lea rsi, [rel COMPILE_TEMPLATE]
-  lea rdx, [rel SRC_FILENAME]   ; %s  (src)
-  lea rcx, [rel OBJ_FILENAME]   ; %s  (obj)
-  lea r8,  [rel EXEC_FILENAME]  ; %s  (exec)
-  lea r9,  [rel OBJ_FILENAME]   ; %s  (obj again)
-
+  lea rdx, [rel SRC_FILENAME]
+  lea rcx, [rel OBJ_FILENAME]
+  lea r8,  [rel EXEC_FILENAME]
+  lea r9,  [rel OBJ_FILENAME]
   sub rsp, 16
   lea rax, [rel OBJ_FILENAME]
   mov [rsp], rax

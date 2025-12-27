@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 (function sully() {
   const fs = require('fs')
   const { exec } = require('child_process')
-  const codeStr = `(${sully.toString()})()
+  const codeStr = `#!/usr/bin/env node\n\n(${sully.toString()})()
 `
   const currentFile = __filename.slice(__dirname.length + 1)
 
